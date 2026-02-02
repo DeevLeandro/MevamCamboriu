@@ -23,7 +23,7 @@ const Events = () => {
       date: '',
       day: 'Todas',
       month: 'Segundas',
-      time: 'Sexta-feira, 20h00',
+      time: 'Segunda-feira, 20h00',
       location: 'Igreja Mevam Camboriú',
       description: 'Junte-se a nós para uma noite especial em estudo da palavra, Entendo os primeiros passos de um cristão.',
       type: 'Primeiros passos'
@@ -55,7 +55,7 @@ const Events = () => {
       title: 'Grupo de Oração',
       day: 'Todas',
       month: 'Segundas',
-      time: 'Quarta-feira, 21h',
+      time: 'Segunda-feira, 21h',
       location: 'Igreja Mevam Camboriú',
       description: 'Encontro de intercessão e oração. Venha buscar a presença de Deus e orar pelas necessidades da igreja e comunidade.',
       type: 'oracao'
@@ -242,7 +242,7 @@ const Events = () => {
               <div className="schedule-day">Domingo</div>
               <div className="schedule-time">19h</div>
               <h4>Culto Principal</h4>
-              <p>Culto com toda a família, Santa Ceia e ministração</p>
+              <p>Culto com toda a família e ministração</p>
             </div>
 
             <div className="schedule-card">
