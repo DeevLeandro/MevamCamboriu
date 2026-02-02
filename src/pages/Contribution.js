@@ -1,0 +1,244 @@
+import React, { useState } from 'react';
+import { QRCodeSVG } from 'qrcode.react'; // Alterado para QRCodeSVG
+import './Contribution.css';
+
+const Contribution = () => {
+  const [copiedPix, setCopiedPix] = useState(false);
+  const pixKey = '45.406.988/0001-21'; // Chave PIX da igreja
+
+  // Função para gerar o payload PIX
+  const generatePixPayload = () => {
+    // Remove caracteres não numéricos do CNPJ
+    const cleanPixKey = pixKey.replace(/\D/g, '');
+    
+    // Configurações do PIX
+    const merchantName = 'CcvamComunidadecristaVindeAmadosMeus'; // Nome da igreja (limite de 25 chars)
+    const merchantCity = 'SAO PAULO'; // Cidade (limite de 15 chars)
+    const description = 'site mevam'; // Descrição para identificação
+    
+    // Monta o payload PIX no formato BR Code
+    const payload = [
+      '000201', // Payload Format Indicator
+      '010212', // Point of Initiation Method (12 = QR dinâmico)
+      '26', // Merchant Account Information
+      '0014BR.GOV.BCB.PIX', // GUI
+      `01${cleanPixKey.length.toString().padStart(2, '0')}${cleanPixKey}`, // Chave PIX
+      '52040000', // Merchant Category Code
+      '5303986', // Moeda (986 = BRL)
+      '5802BR', // Country Code
+      `59${merchantName.length.toString().padStart(2, '0')}${merchantName}`, // Nome
+      `60${merchantCity.length.toString().padStart(2, '0')}${merchantCity}`, // Cidade
+      `62${(description.length + 4).toString().padStart(2, '0')}`, // Additional Data Field
+      `05${description.length.toString().padStart(2, '0')}${description}`, // Descrição
+      '6304' // CRC16
+    ].join('');
+
+    // Calcula o CRC16
+    const calculateCRC16 = (data) => {
+      let crc = 0xFFFF;
+      for (let i = 0; i < data.length; i++) {
+        crc ^= data.charCodeAt(i) << 8;
+        for (let j = 0; j < 8; j++) {
+          crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
+        }
+      }
+      return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+    };
+
+    const crc = calculateCRC16(payload);
+    return payload + crc;
+  };
+
+  const pixPayload = generatePixPayload();
+
+  const copyPix = () => {
+    navigator.clipboard.writeText(pixKey);
+    setCopiedPix(true);
+    setTimeout(() => setCopiedPix(false), 3000);
+  };
+
+  // Função para copiar o código PIX completo
+  const copyPixCode = () => {
+    navigator.clipboard.writeText(pixPayload);
+    alert('Código PIX copiado! Cole no campo "PIX Copia e Cola" do seu banco.');
+  };
+
+  return (
+    <div className="contribution-page">
+      <section className="contribution-hero">
+        <div className="container">
+          <span className="hero-icon">❤️</span>
+          <h1 className="page-title">Contribuir</h1>
+          <p className="page-subtitle">
+            "Cada um contribua segundo propôs no coração" — 2 Coríntios 9:7
+          </p>
+        </div>
+      </section>
+
+      <section className="section contribution-intro">
+        <div className="container">
+          <div className="intro-content">
+            <h2>Sua Contribuição Faz a Diferença</h2>
+            <p className="lead-text">
+              Através dos dízimos e ofertas, conseguimos manter as atividades da igreja, 
+              apoiar missionários, realizar obras sociais e levar o evangelho a mais pessoas. 
+              Cada contribuição é uma semente plantada no Reino de Deus.
+            </p>
+            <blockquote className="bible-quote">
+              "Trazei todos os dízimos à casa do tesouro, para que haja mantimento na minha 
+              casa, e depois fazei prova de mim, diz o Senhor dos Exércitos, se eu não vos 
+              abrir as janelas do céu e não derramar sobre vós uma bênção tal, que dela vos 
+              advenha a maior abastança."
+              <cite>— Malaquias 3:10</cite>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <section className="section contribution-types">
+        <div className="container">
+          <div className="types-grid">
+            <div className="type-card">
+              <div className="type-icon">📦</div>
+              <h3>Dízimo</h3>
+              <p>
+                O dízimo é 10% da nossa renda, uma prática bíblica que demonstra 
+                nossa gratidão a Deus e confiança em sua provisão. É uma forma de 
+                honrar ao Senhor com nossos bens.
+              </p>
+              <blockquote>
+                "Honra ao Senhor com os teus bens e com as primícias de toda a tua renda."
+                <cite>— Provérbios 3:9</cite>
+              </blockquote>
+            </div>
+
+            <div className="type-card">
+              <div className="type-icon">🎁</div>
+              <h3>Oferta</h3>
+              <p>
+                As ofertas são contribuições voluntárias além do dízimo, motivadas 
+                por gratidão e amor. São doações especiais para apoiar projetos, 
+                campanhas e necessidades específicas da igreja.
+              </p>
+              <blockquote>
+                "Cada um dê conforme determinou em seu coração, não com pesar ou por obrigação."
+                <cite>— 2 Coríntios 9:7</cite>
+              </blockquote>
+            </div>
+
+            <div className="type-card">
+              <div className="type-icon">🌍</div>
+              <h3>Missões</h3>
+              <p>
+                Contribuições destinadas ao trabalho missionário, levando o evangelho 
+                a outras regiões e nações. Apoiamos missionários e projetos de 
+                evangelização ao redor do mundo.
+              </p>
+              <blockquote>
+                "E como pregarão, se não forem enviados?"
+                <cite>— Romanos 10:15</cite>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section pix-section">
+        <div className="container">
+          <div className="pix-container">
+            <div className="pix-header">
+              <h2>Contribua via PIX</h2>
+              <p>Forma rápida, segura e prática de contribuir</p>
+            </div>
+
+            <div className="pix-content">
+              <div className="pix-qr">
+                {/* QR Code real e funcional */}
+                <div className="qr-placeholder" style={{ 
+                  backgroundColor: 'white', 
+                  padding: '20px',
+                  borderRadius: '8px',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                }}>
+                  <QRCodeSVG 
+                    value={pixPayload}
+                    size={200}
+                    level="H" // Alta correção de erro
+                    includeMargin={true}
+                    fgColor="#8B7355" // Cor marrom para combinar com o design
+                    bgColor="#FFFFFF"
+                  />
+                </div>
+                <p className="qr-label">Escaneie o QR Code acima com seu banco</p>
+                
+                {/* Botão para copiar código PIX */}
+                <button 
+                  onClick={copyPixCode}
+                  style={{
+                    marginTop: '15px',
+                    padding: '10px 20px',
+                    backgroundColor: '#8B7355',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontSize: '14px'
+                  }}
+                >
+                  📋 Copiar Código PIX
+                </button>
+                <p style={{ 
+                  fontSize: '12px', 
+                  color: '#666', 
+                  marginTop: '5px',
+                  fontStyle: 'italic'
+                }}>
+                  Use no campo "PIX Copia e Cola" do seu banco
+                </p>
+              </div>
+
+              <div className="pix-details">
+                <div className="pix-info-box">
+                  <label>Chave PIX (CNPJ):</label>
+                  <div className="pix-key-display">
+                    <span className="pix-key">{pixKey}</span>
+                    <button 
+                      className={`copy-btn ${copiedPix ? 'copied' : ''}`}
+                      onClick={copyPix}
+                    >
+                      {copiedPix ? '✓ Copiado!' : '📋 Copiar'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pix-instructions">
+                  <h4>Como contribuir:</h4>
+                  <ol>
+                    <li>Abra o aplicativo do seu banco</li>
+                    <li>Escolha a opção <strong>PIX</strong></li>
+                    <li>Escaneie o QR Code ou copie a chave PIX</li>
+                    <li>Confirme o valor e efetue o pagamento</li>
+                    <li>O comprovante virá com a descrição: <strong>"site mevam"</strong></li>
+                  </ol>
+                </div>
+
+                <div className="pix-note">
+                  <p>
+                    <strong>Importante:</strong> Todas as contribuições são registradas e 
+                    utilizadas com transparência para a obra de Deus. Que o Senhor abençoe 
+                    sua generosidade!
+                  </p>
+                  <p style={{ marginTop: '10px', color: '#8B7355', fontWeight: 'bold' }}>
+                    🔍 Identificação: Seu pagamento será identificado como "site mevam"
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Contribution;

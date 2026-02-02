@@ -1,0 +1,140 @@
+/* PastoralMeeting Styles */
+.pastoral-hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  padding: 8rem 0 5rem;
+  text-align: center;
+}
+
+.pastoral-content {
+  background: var(--gradient-soft);
+}
+
+.pastoral-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.pastoral-info h2 {
+  font-size: 2.5rem;
+  color: var(--primary-dark);
+  margin-bottom: 1.5rem;
+}
+
+.pastor-cards {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.pastor-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.pastor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.pastor-photo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.pastor-card h3 {
+  font-size: 1.5rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.75rem;
+}
+
+.pastor-card p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.meeting-form-container {
+  position: sticky;
+  top: 100px;
+}
+
+.pastor-selection {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.pastor-selection p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.pastor-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pastor-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+}
+
+.pastor-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pastor-icon {
+  font-size: 2rem;
+}
+
+.selected-pastor {
+  background: linear-gradient(135deg, rgba(139, 115, 85, 0.1), rgba(201, 168, 106, 0.1));
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.change-pastor {
+  margin-left: auto;
+  color: var(--primary);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+@media (max-width: 968px) {
+  .pastoral-grid {
+    grid-template-columns: 1fr;
+  }
+  .meeting-form-container {
+    position: static;
+  }
+}

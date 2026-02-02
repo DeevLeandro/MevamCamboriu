@@ -1,0 +1,379 @@
+/* ===== ABOUT HERO ===== */
+.about-hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  padding: 8rem 0 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 50%, rgba(201, 168, 106, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+}
+
+.page-title1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  color: #ffff;
+  z-index: 1;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.hero-logo-container1 {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.hero-logo1 {
+  max-width: 200px;
+  height: auto;
+  border-radius: 50%;
+  border: 4px solid rgba(201, 168, 106, 0.8);
+  box-shadow: 
+    0 0 40px rgba(201, 168, 106, 0.4),
+    0 0 80px rgba(201, 168, 106, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: logoGlow 3s ease-in-out infinite alternate;
+}
+
+.page-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+  font-style: italic;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* ===== STORY SECTION ===== */
+.story-section {
+  background: var(--gradient-soft);
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.story-text h2 {
+  font-size: 2.5rem;
+  color: var(--primary-dark);
+  margin-bottom: 2rem;
+}
+
+.story-text p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.story-image {
+  animation: fadeInRight 1s ease-out;
+}
+
+.image-placeholder {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== MVV SECTION ===== */
+.mvv-section {
+  background: white;
+}
+
+.mvv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+.mvv-card {
+  background: linear-gradient(135deg, #FAF8F5 0%, #FFFFFF 100%);
+  border: 2px solid rgba(139, 115, 85, 0.1);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.mvv-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.mvv-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.mvv-card:hover .mvv-icon {
+  transform: scale(1.2);
+}
+
+.mvv-card h3 {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+  margin-bottom: 1.5rem;
+}
+
+.mvv-card p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.values-list {
+  list-style: none;
+  text-align: left;
+  margin-top: 1.5rem;
+}
+
+.values-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.values-list li:last-child {
+  border-bottom: none;
+}
+
+.values-list strong {
+  color: var(--primary);
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 0.5rem;
+}
+
+/* ===== BELIEFS SECTION ===== */
+.beliefs-section {
+  background: var(--gradient-soft);
+}
+
+.beliefs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.belief-item {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border-left: 4px solid var(--accent);
+}
+
+.belief-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.belief-number {
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--accent-soft);
+  margin-bottom: 1rem;
+}
+
+.belief-item h4 {
+  font-size: 1.4rem;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+}
+
+.belief-item p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ===== LEADERSHIP SECTION ===== */
+.leadership-section {
+  background: white;
+}
+
+.leaders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.leader-card {
+  background: linear-gradient(135deg, #FAF8F5 0%, #FFFFFF 100%);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 2px solid rgba(139, 115, 85, 0.08);
+}
+
+.leader-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.leader-photo {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(139, 115, 85, 0.2);
+}
+
+.leader-card h3 {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.leader-role {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.leader-description {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ===== ABOUT CTA ===== */
+.about-cta {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-cta::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle, rgba(201, 168, 106, 0.15) 2px, transparent 2px);
+  background-size: 40px 40px;
+  animation: movePattern 15s linear infinite;
+}
+
+.cta-box {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-box h2 {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.cta-box p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  opacity: 0.95;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 968px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .story-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .story-text h2 {
+    font-size: 2rem;
+  }
+
+  .mvv-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .beliefs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .leaders-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-hero {
+    padding: 6rem 0 4rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .cta-box h2 {
+    font-size: 2rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+  }
+}
