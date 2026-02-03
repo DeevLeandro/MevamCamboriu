@@ -142,9 +142,6 @@ const Flyers = () => {
                   <p className="flyer-description">{flyer.description}</p>
                   
                   <div className="flyer-actions">
-                    <button className="btn btn-secondary btn-sm">
-                      Mais Informações
-                    </button>
                   </div>
                 </div>
               </div>
