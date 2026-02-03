@@ -1,52 +1,79 @@
 import React, { useState } from 'react';
-import { QRCodeSVG } from 'qrcode.react'; // Alterado para QRCodeSVG
+import { QRCodeSVG } from 'qrcode.react';
 import './Contribution.css';
 
 const Contribution = () => {
   const [copiedPix, setCopiedPix] = useState(false);
   const pixKey = '45.406.988/0001-21'; // Chave PIX da igreja
 
-  // Função para gerar o payload PIX
+  // Função para gerar o payload PIX corretamente
   const generatePixPayload = () => {
     // Remove caracteres não numéricos do CNPJ
     const cleanPixKey = pixKey.replace(/\D/g, '');
     
-    // Configurações do PIX
-    const merchantName = 'CcvamComunidadecristaVindeAmadosMeus'; // Nome da igreja (limite de 25 chars)
-    const merchantCity = 'SAO PAULO'; // Cidade (limite de 15 chars)
-    const description = 'site mevam'; // Descrição para identificação
+    // Configurações do PIX (limites importantes!)
+    const merchantName = 'Ccvam Comunidade crista'; // Máximo 25 caracteres
+    const merchantCity = 'SAO PAULO'; // Máximo 15 caracteres
+    const txid = 'SITEMEVAM'; // Transaction ID (até 25 chars)
     
-    // Monta o payload PIX no formato BR Code
-    const payload = [
-      '000201', // Payload Format Indicator
-      '010212', // Point of Initiation Method (12 = QR dinâmico)
-      '26', // Merchant Account Information
-      '0014BR.GOV.BCB.PIX', // GUI
-      `01${cleanPixKey.length.toString().padStart(2, '0')}${cleanPixKey}`, // Chave PIX
-      '52040000', // Merchant Category Code
-      '5303986', // Moeda (986 = BRL)
-      '5802BR', // Country Code
-      `59${merchantName.length.toString().padStart(2, '0')}${merchantName}`, // Nome
-      `60${merchantCity.length.toString().padStart(2, '0')}${merchantCity}`, // Cidade
-      `62${(description.length + 4).toString().padStart(2, '0')}`, // Additional Data Field
-      `05${description.length.toString().padStart(2, '0')}${description}`, // Descrição
-      '6304' // CRC16
-    ].join('');
-
-    // Calcula o CRC16
-    const calculateCRC16 = (data) => {
-      let crc = 0xFFFF;
-      for (let i = 0; i < data.length; i++) {
-        crc ^= data.charCodeAt(i) << 8;
-        for (let j = 0; j < 8; j++) {
-          crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
-        }
-      }
-      return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+    // Função auxiliar para formatar campos EMV
+    const formatEMV = (id, value) => {
+      const length = value.length.toString().padStart(2, '0');
+      return `${id}${length}${value}`;
     };
 
-    const crc = calculateCRC16(payload);
-    return payload + crc;
+    // ID 26: Merchant Account Information (obrigatório)
+    const merchantAccountInfo = 
+      formatEMV('00', 'BR.GOV.BCB.PIX') + // GUI
+      formatEMV('01', cleanPixKey); // Chave PIX
+    
+    const merchantAccountField = formatEMV('26', merchantAccountInfo);
+
+    // ID 62: Additional Data Field Template
+    const additionalDataField = formatEMV('05', txid); // Reference Label
+    const additionalDataTemplate = formatEMV('62', additionalDataField);
+
+    // Montagem do payload (SEM o CRC ainda)
+    const payloadWithoutCRC = 
+      formatEMV('00', '01') + // Payload Format Indicator
+      formatEMV('01', '12') + // Point of Initiation Method (12 = estático reutilizável)
+      merchantAccountField + // ID 26
+      formatEMV('52', '0000') + // Merchant Category Code
+      formatEMV('53', '986') + // Transaction Currency (986 = BRL)
+      formatEMV('58', 'BR') + // Country Code
+      formatEMV('59', merchantName) + // Merchant Name
+      formatEMV('60', merchantCity) + // Merchant City
+      additionalDataTemplate + // ID 62
+      '6304'; // CRC placeholder
+
+    // Calcula CRC16-CCITT
+    const calculateCRC16 = (str) => {
+      let crc = 0xFFFF;
+      const polynomial = 0x1021;
+      
+      for (let i = 0; i < str.length; i++) {
+        crc ^= (str.charCodeAt(i) << 8);
+        
+        for (let j = 0; j < 8; j++) {
+          if (crc & 0x8000) {
+            crc = (crc << 1) ^ polynomial;
+          } else {
+            crc = crc << 1;
+          }
+        }
+      }
+      
+      crc = crc & 0xFFFF;
+      return crc.toString(16).toUpperCase().padStart(4, '0');
+    };
+
+    const crc = calculateCRC16(payloadWithoutCRC);
+    const finalPayload = payloadWithoutCRC + crc;
+    
+    console.log('PIX Payload gerado:', finalPayload);
+    console.log('Tamanho:', finalPayload.length);
+    
+    return finalPayload;
   };
 
   const pixPayload = generatePixPayload();
@@ -68,7 +95,7 @@ const Contribution = () => {
       <section className="contribution-hero">
         <div className="container">
           <span className="hero-icon">❤️</span>
-          <h1 className="page-title">Contribuir</h1>
+          <h1 className="page-title1">Contribuir</h1>
           <p className="page-subtitle">
             "Cada um contribua segundo propôs no coração" — 2 Coríntios 9:7
           </p>
@@ -158,14 +185,14 @@ const Contribution = () => {
                   backgroundColor: 'white', 
                   padding: '20px',
                   borderRadius: '8px',
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                  boxShadow: '0 2px 10px rgba(50, 43, 112, 0.1)'
                 }}>
                   <QRCodeSVG 
                     value={pixPayload}
                     size={200}
-                    level="H" // Alta correção de erro
+                    level="M" // Nível médio é suficiente e recomendado para PIX
                     includeMargin={true}
-                    fgColor="#8B7355" // Cor marrom para combinar com o design
+                    fgColor="#000000" // Preto puro para melhor leitura
                     bgColor="#FFFFFF"
                   />
                 </div>
@@ -177,7 +204,7 @@ const Contribution = () => {
                   style={{
                     marginTop: '15px',
                     padding: '10px 20px',
-                    backgroundColor: '#8B7355',
+                    backgroundColor: '#55568b',
                     color: 'white',
                     border: 'none',
                     borderRadius: '4px',
@@ -189,7 +216,7 @@ const Contribution = () => {
                 </button>
                 <p style={{ 
                   fontSize: '12px', 
-                  color: '#666', 
+                  color: '#666666', 
                   marginTop: '5px',
                   fontStyle: 'italic'
                 }}>
@@ -218,7 +245,7 @@ const Contribution = () => {
                     <li>Escolha a opção <strong>PIX</strong></li>
                     <li>Escaneie o QR Code ou copie a chave PIX</li>
                     <li>Confirme o valor e efetue o pagamento</li>
-                    <li>O comprovante virá com a descrição: <strong>"site mevam"</strong></li>
+                    <li>O comprovante virá com a identificação: <strong>"SITEMEVAM"</strong></li>
                   </ol>
                 </div>
 
@@ -228,8 +255,8 @@ const Contribution = () => {
                     utilizadas com transparência para a obra de Deus. Que o Senhor abençoe 
                     sua generosidade!
                   </p>
-                  <p style={{ marginTop: '10px', color: '#8B7355', fontWeight: 'bold' }}>
-                    🔍 Identificação: Seu pagamento será identificado como "site mevam"
+                  <p style={{ marginTop: '10px', color: '#5a558b', fontWeight: 'bold' }}>
+                    🔍 Identificação: Seu pagamento será identificado como "SITEMEVAM"
                   </p>
                 </div>
               </div>

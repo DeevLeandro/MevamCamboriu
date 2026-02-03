@@ -1,56 +1,62 @@
 import React from 'react';
 import './Flyers.css';
 
+// Importando imagens)
+const images = {
+  cultoDomingo: '/images/Principal2.jpg',
+  mulheres: '/images/DiscipuladoMulheres.jpg',
+  homens: '/images/DiscipuladoHomens.jpg',
+  primeirosPassos: '/images/PrimeirosPassos.jpeg',
+  oracao: '/images/Oracao.jpg'
+};
+
 const Flyers = () => {
-  // Flyers de exemplo - Em produção, viriam de um backend/CMS
+  // Flyers
   const flyers = [
     {
       id: 1,
-      title: 'Culto de Celebração',
-      date: '07 de Fevereiro, 2026',
+      title: 'Culto de Domingo',
+      date: 'Todos os Domingos às 19h',
       category: 'Culto',
-      description: 'Venha celebrar conosco uma noite especial de louvor e adoração. Prepare seu coração para um encontro poderoso com Deus!',
-      color: '#8B7355'
+      description: 'Celebre conosco um momento especial de louvor, adoração e ensino da Palavra de Deus. Ambiente acolhedor para toda família.',
+      image: images.cultoDomingo,
+      color: '#8b7355'
     },
     {
       id: 2,
-      title: 'Batismo nas Águas',
-      date: '16 de Fevereiro, 2026',
-      category: 'Evento Especial',
-      description: 'Inscrições abertas para o batismo. Um momento de decisão e testemunho público da sua fé em Jesus Cristo.',
-      color: '#5A7C8E'
+      title: 'Discipulado de Mulheres',
+      date: 'Segundas-feiras às 19h30',
+      category: 'Discipulado',
+      description: 'Encontro para mulheres que buscam crescimento espiritual, apoio mútuo e fortalecimento na jornada da fé cristã.',
+      image: images.mulheres,
+      color: '#6a88c9'
     },
     {
       id: 3,
-      title: 'Grupo de Oração',
-      date: 'Toda Quarta-feira',
-      category: 'Oração',
-      description: 'Encontro de intercessão e busca da presença de Deus. Venha orar conosco pelas necessidades da igreja e da comunidade.',
-      color: '#C9A86A'
+      title: 'Discipulado de Homens',
+      date: 'Segundas-feiras às 19h30',
+      category: 'Discipulado',
+      description: 'Momento dedicado aos homens para estudo bíblico, partilha de experiências e edificação da vida cristã.',
+      image: images.homens,
+      color: '#4a6fa5'
     },
     {
       id: 4,
-      title: 'Célula de Jovens',
-      date: 'Toda Sexta-feira',
-      category: 'Juventude',
-      description: 'Encontro dos jovens com louvor, estudos bíblicos e comunhão. Um espaço para crescer na fé e fazer amizades.',
-      color: '#8B7355'
+      title: 'Primeiros Passos',
+      date: 'Terças-feiras às 20h',
+      category: 'Ensino',
+      description: 'Ideal para novos convertidos e interessados em conhecer os fundamentos básicos da fé e da vida cristã.',
+      image: images.primeirosPassos,
+      color: '#5d8b7f'
     },
     {
       id: 5,
-      title: 'Campanha de Missões',
-      date: 'Fevereiro 2026',
-      category: 'Missões',
-      description: 'Campanha especial de apoio aos missionários. Vamos juntos levar o evangelho até os confins da terra!',
-      color: '#5A7C8E'
-    },
-    {
-      id: 6,
-      title: 'Escola Bíblica Dominical',
-      date: 'Todos os Domingos',
-      category: 'Ensino',
-      description: 'Estudo profundo da Palavra de Deus para todas as idades. Cresça no conhecimento bíblico e na intimidade com Deus.',
-      color: '#C9A86A'
+      title: 'Grupo de Oração',
+      date: 'Quartas-feiras às 19h',
+      category: 'Oração',
+      description: 'Junte-se a nós em um poderoso momento de intercessão pelas famílias, igreja e necessidades da comunidade.',
+      image: images.oracao,
+      color: '#9d6b9d'
     }
   ];
 
@@ -58,9 +64,9 @@ const Flyers = () => {
     <div className="flyers-page">
       <section className="flyers-hero">
         <div className="container">
-          <h1 className="page-title1">Avisos da Igreja</h1>
+          <h1 className="page-title1">Eventos e Avisos</h1>
           <p className="page-subtitle">
-            Fique por dentro de tudo que acontece na Mevam Camboriú
+            Participe das atividades e faça parte da nossa comunidade na Mevam Camboriú
           </p>
         </div>
       </section>
@@ -70,28 +76,61 @@ const Flyers = () => {
           <div className="flyers-grid">
             {flyers.map((flyer) => (
               <div key={flyer.id} className="flyer-card">
-                <div className="flyer-image" style={{ background: `linear-gradient(135deg, ${flyer.color} 0%, ${flyer.color}dd 100%)` }}>
-                  <svg width="100%" height="100%" viewBox="0 0 400 300">
-                    <defs>
-                      <pattern id={`pattern${flyer.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <circle cx="20" cy="20" r="2" fill="white" opacity="0.2"/>
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill={`url(#pattern${flyer.id})`}/>
-                    
-                    {/* Decorative cross */}
-                    <g transform="translate(200, 150)" opacity="0.3">
-                      <line x1="0" y1="-60" x2="0" y2="60" stroke="white" strokeWidth="8" strokeLinecap="round"/>
-                      <line x1="-40" y1="0" x2="40" y2="0" stroke="white" strokeWidth="8" strokeLinecap="round"/>
-                      <circle cx="0" cy="0" r="80" fill="none" stroke="white" strokeWidth="4"/>
-                    </g>
-                    
-                    {/* Category badge */}
-                    <rect x="20" y="20" width="120" height="35" rx="17.5" fill="white" opacity="0.9"/>
-                    <text x="80" y="42" textAnchor="middle" fill={flyer.color} fontSize="14" fontWeight="600" fontFamily="sans-serif">
-                      {flyer.category}
-                    </text>
-                  </svg>
+                {/* Container da imagem real */}
+                <div className="flyer-image-container">
+                  {/* Imagem principal */}
+                  <img 
+                    src={flyer.image} 
+                    alt={flyer.title}
+                    className="flyer-real-image"
+                    onError={(e) => {
+                      // Fallback se a imagem não carregar
+                      e.target.style.display = 'none';
+                      e.target.nextElementSibling.style.display = 'block';
+                    }}
+                  />
+                  
+                  {/* Fallback SVG (apenas se imagem não carregar) */}
+                  <div 
+                    className="flyer-fallback-svg"
+                    style={{ 
+                      display: 'none',
+                      background: `linear-gradient(135deg, ${flyer.color} 0%, ${flyer.color}dd 100%)`
+                    }}
+                  >
+                    <svg width="100%" height="100%" viewBox="0 0 400 300">
+                      <defs>
+                        <pattern id={`pattern${flyer.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                          <circle cx="20" cy="20" r="2" fill="white" opacity="0.2"/>
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill={`url(#pattern${flyer.id})`}/>
+                      
+                      <g transform="translate(200, 150)" opacity="0.3">
+                        <line x1="0" y1="-60" x2="0" y2="60" stroke="white" strokeWidth="8" strokeLinecap="round"/>
+                        <line x1="-40" y1="0" x2="40" y2="0" stroke="white" strokeWidth="8" strokeLinecap="round"/>
+                        <circle cx="0" cy="0" r="80" fill="none" stroke="white" strokeWidth="4"/>
+                      </g>
+                      
+                      {/* Texto indicativo no fallback */}
+                      <text 
+                        x="200" 
+                        y="160" 
+                        textAnchor="middle" 
+                        fill="white" 
+                        fontSize="18" 
+                        fontWeight="600"
+                        fontFamily="'Montserrat', sans-serif"
+                      >
+                        {flyer.title}
+                      </text>
+                    </svg>
+                  </div>
+                  
+                  {/* Badge de categoria sobreposta */}
+                  <div className="category-badge">
+                    {flyer.category}
+                  </div>
                 </div>
                 
                 <div className="flyer-content">
@@ -104,7 +143,7 @@ const Flyers = () => {
                   
                   <div className="flyer-actions">
                     <button className="btn btn-secondary btn-sm">
-                      Saiba Mais
+                      Mais Informações
                     </button>
                   </div>
                 </div>
@@ -114,13 +153,14 @@ const Flyers = () => {
 
           {/* Info box */}
           <div className="flyers-info-box">
-            <h3>📢 Quer Publicar um Aviso?</h3>
+            <div className="info-box-icon">📢</div>
+            <h3>Quer Divulgar um Evento?</h3>
             <p>
-              Se você tem alguma informação importante para compartilhar com a igreja, 
-              entre em contato com nossa secretaria ou fale com um dos pastores.
+              Se você tem um evento ou aviso importante para compartilhar com a comunidade, 
+              entre em contato com nossa secretaria. Estamos aqui para ajudar!
             </p>
             <a href="/contato" className="btn btn-primary">
-              Entre em Contato
+              Entrar em Contato
             </a>
           </div>
         </div>

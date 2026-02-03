@@ -46,7 +46,7 @@ const Contact = () => {
                     <p>
                       <strong>Segunda-feira:</strong> 20h<br />
                       <strong>Domingo:</strong> 19h<br />
-                      <strong>Quarta-feira:</strong> 21h (Oração)
+                      <strong>Segunda-feira:</strong> 21h (Oração)
                     </p>
                   </div>
                 </div>
@@ -110,40 +110,11 @@ const Contact = () => {
             {/* Map */}
             <div className="map-container">
               <div className="map-placeholder">
-                <svg width="100%" height="100%" viewBox="0 0 600 500">
-                  <defs>
-                    <linearGradient id="mapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{ stopColor: '#E8D4B5', stopOpacity: 1 }} />
-                      <stop offset="100%" style={{ stopColor: '#FAF8F5', stopOpacity: 1 }} />
-                    </linearGradient>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#mapGrad)"/>
-                  
-                  {/* Grid lines */}
-                  <g opacity="0.2" stroke="#8B7355" strokeWidth="1">
-                    {[...Array(6)].map((_, i) => (
-                      <line key={`h${i}`} x1="0" y1={i * 100} x2="600" y2={i * 100} />
-                    ))}
-                    {[...Array(7)].map((_, i) => (
-                      <line key={`v${i}`} x1={i * 100} y1="0" x2={i * 100} y2="500" />
-                    ))}
-                  </g>
-                  
-                  {/* Map marker */}
-                  <g transform="translate(300, 250)">
-                    <circle cx="0" cy="0" r="40" fill="#8B7355" opacity="0.2" />
-                    <circle cx="0" cy="0" r="30" fill="#8B7355" opacity="0.3" />
-                    <path d="M0,-30 C-15,-30 -25,-20 -25,0 C-25,20 0,40 0,40 C0,40 25,20 25,0 C25,-20 15,-30 0,-30 Z" fill="#C9A86A"/>
-                    <circle cx="0" cy="-5" r="8" fill="white"/>
-                  </g>
-                  
-                  <text x="300" y="320" textAnchor="middle" fill="#8B7355" fontSize="18" fontWeight="600" fontFamily="serif">
-                    Mevam Camboriú
-                  </text>
-                  <text x="300" y="345" textAnchor="middle" fill="#8B7355" fontSize="14" fontFamily="sans-serif">
-                    Camboriú - SC
-                  </text>
-                </svg>
+                    <img 
+                    src="/images/Mapafinal.jpg" 
+                    alt="mapa igreja" 
+                    className=".map-image"
+                    />
               </div>
               <a 
                 href="https://www.google.com/maps/place/Igreja+Mevam+Cambori%C3%BA/@-27.0144012,-48.6689756,15z/data=!4m10!1m2!2m1!1smevam+camboriu!3m6!1s0x94d8b5c4f3b52a03:0xf65aea3df7866ee4!8m2!3d-27.0144012!4d-48.6509512!15sCg5tZXZhbSBjYW1ib3JpdZIBDWdvc3BlbF9jaHVyY2jgAQA!16s%2Fg%2F11cmzzrvnq?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D" 

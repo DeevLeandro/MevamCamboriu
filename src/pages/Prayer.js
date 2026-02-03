@@ -22,13 +22,11 @@ const Prayer = () => {
       {/* Hero */}
       <section className="prayer-hero">
         <div className="container">
-          <div className="hero-content">
             <span className="hero-icon">🙏</span>
-            <h1 className="page-title">Pedidos de Oração</h1>
+            <h1 className="page-title1">Pedidos de Oração</h1>
             <p className="page-subtitle">
               "A oração de um justo é poderosa e eficaz" — Tiago 5:16
             </p>
-          </div>
         </div>
       </section>
 
@@ -94,7 +92,7 @@ const Prayer = () => {
                   <li><span>💼</span> Trabalho e provisão financeira</li>
                   <li><span>📚</span> Estudos e decisões importantes</li>
                   <li><span>😌</span> Paz emocional e espiritual</li>
-                  <li><span>💛</span> Qualquer necessidade que você tenha</li>
+                  <li><span>❤️</span> Qualquer necessidade que você tenha</li>
                 </ul>
               </div>
             </div>

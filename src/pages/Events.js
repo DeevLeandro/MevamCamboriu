@@ -62,7 +62,7 @@ const Events = () => {
     },
     {
       id: 5,
-      title: 'Célula de Jovens',
+      title: 'Grupo de Convivio',
       day: 'Todas',
       month: 'Sextas',
       time: 'Sexta-feira, 20h',

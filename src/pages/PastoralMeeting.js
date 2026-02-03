@@ -27,7 +27,7 @@ const PastoralMeeting = () => {
     <div className="pastoral-page">
       <section className="pastoral-hero">
         <div className="container">
-          <h1 className="page-title">Agenda Pastoral</h1>
+          <h1 className="page-title1">Agenda Pastoral</h1>
           <p className="page-subtitle">
             Agende um momento para conversar com nossos pastores
           </p>
